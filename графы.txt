@@ -21,3 +21,22 @@ void DFS (int Punkt, std::vector<int>& Metka, std::vector<std::vector<int>>& Sos
     }
 }
 
+// для задачи с восстановлением пути
+void BFS (int Punkt, std::vector<int>& Rasstoyanie /*изначально -1*/,
+           std::vector<std::vector<int>>& Sosede, std::vector<int>& Roditeli) {
+    std::queue<int> Queue;
+    int roditel;
+    Queue.push(Punkt);
+    Rasstoyanie[Punkt] = 0;
+    while (Queue.size() > 0) {
+        roditel = Queue.front();
+        Queue.pop();
+        for (int i = 0; i < Sosede[roditel].size(); i++) {
+            if (Rasstoyanie[Sosede[roditel][i]] == -1) {
+                Queue.push(Sosede[roditel][i]);
+                Rasstoyanie[Sosede[roditel][i]] = Rasstoyanie[roditel] + 1;
+                Roditeli[Sosede[roditel][i]] = roditel;
+            }
+        }
+    }
+}
