@@ -1,0 +1,23 @@
+std::vector<std::vector<int>> Matrix_to_List (std::vector<std::vector<int>> Matrix) {
+    // принимает матрицу смежности и возвращает список смежности (детей)
+    std::vector<std::vector<int>> List(Matrix.size());
+    for (int i = 0; i < Matrix.size(); i++) {
+        for (int j = 0; j < Matrix[i].size(); j++) {
+            if (Matrix[i][j] != 0) {
+                List[i].push_back(j);
+            }
+        }
+    }
+    return List;
+}
+
+
+void DFS (int Punkt, std::vector<int>& Metka, std::vector<std::vector<int>>& Sosede) {
+    Metka[Punkt] = 1;
+    for (int i = 0; i < Sosede[Punkt].size(); i++) {
+        if (Metka[Sosede[Punkt][i]] == 0) {
+            DFS(Sosede[Punkt][i], Metka, Sosede);
+        }
+    }
+}
+
